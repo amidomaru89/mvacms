@@ -87,7 +87,7 @@ $params - массив где ключ название столбца а его
 	'id' => 1,  свойство может принимать число
 	'name' => 'Цветы', свойство может принимать текст
 */ 
-function MVAinsert($table, $params) {
+function MVAinsert($table, $params, $go = 'none') {
 $sql.='INSERT INTO `'.$table.'` (';
 $arrayLength = count($params);
 $counter = 0;
@@ -106,17 +106,42 @@ $counter = 0;
 	    if($counter == $arrayLength){
 	    	if(is_numeric($v)) {$sql.=$v;} else {$sql.="'".$v."'";}
 	    } else {
-	    	if(is_numeric($v)) {$sql.=$v.", ";} else {$sql.="'".$v."', ";}
+	    	if(is_numeric($v)) {$sql.=addslashes($v).", ";} else {$sql.="'".addslashes($v)."', ";}
 	    }
 	}
 $sql.=')';
 
-if (conn()->query($sql) === TRUE) {
-    return '<div class="system_ok"><i class="fa fa-check" aria-hidden="true"></i> Категория добавлена.</div>';
-} else {
-	return '<div class="system_ok"><i class="fa fa-bug" aria-hidden="true"></i> Возникли проблемы с добавлением при ' . $sql . ' <br />'.conn()->error.'</div>';
+	if (conn()->query($sql) === TRUE) {
+	    $mess = '<div class="system_ok"><i class="fa fa-check" aria-hidden="true"></i> Категория добавлена.</div>';
+	} else {
+		$mess = '<div class="system_false"><i class="fa fa-bug" aria-hidden="true"></i> Возникли проблемы с добавлением при ' . $sql . ' <br />'.conn()->error.'</div>';
+	}
+if ($go != 'none') {
+	return "<script>Mredir('{$go}' ,'{$mess}');</script>";
 }
 
-
 }
+
+function MVApost($post){
+
+if ($post['data-go'] == 'create') {
+	switch ($post['data-type']) {
+		case 'folder':
+			$params = array(
+						'parent_id' => $post['parent_id'],
+						'name' => $post['name']			
+					  );
+			if ($post['description'] !='') { $params += ['description'=>$post['description']]; }
+			if ($post['keywords'] !='') { $params += ['keywords'=>$post['keywords']]; }
+
+			if ($post['pretext'] !='') { $params += ['pretext'=>$post['pretext']]; }
+			if ($post['text'] !='') { $params += ['text'=>$post['text']]; }
+			return MVAinsert('categories', $params, 'categories');
+	break;
+		
+		
+	}
+}
+}
+
 ?>

@@ -154,3 +154,13 @@ label .fa{    position: absolute;
     left: 10px;}
 
 .task_bar{margin: 10px 0px;}
+.system_ok{    background-color: #bfd255;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 0px 0px 15px #fff;
+    margin: 20px 0px;}
+.system_false{    background-color: #d25555;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 0px 0px 15px #fff;
+    margin: 20px 0px;}

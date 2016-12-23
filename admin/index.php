@@ -30,8 +30,11 @@ if (empty($_SESSION['login']) or empty($_SESSION['id'])) { include_once admdin.'
 <div class="wrap">
 	<div class="left"><?include_once admdin.'template/blocks/left.php';?></div>
 	<div class="content animated">
-
-content
+<pre>
+<?
+if (isset($_POST)) print_r(MVApost($_POST));
+?>
+</pre>
 
 	</div>
 </div>

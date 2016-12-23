@@ -1,6 +1,7 @@
 <?
 define(admdin, $_SERVER['DOCUMENT_ROOT'].'/admin/');
 include admdin.'system/system_base.php';
+
 ?>
 <h1>Разделы и страницы</h1>
 <div class="task_bar">
@@ -12,6 +13,7 @@ $from = array('categories');
 $where = null;
 ?> 
 
+<?if(isset($_POST['mess'])) echo $_POST['mess']; ?>
 
 <table class="display table table-hover table-striped" cellspacing="0" width="100%" >
  <thead >
