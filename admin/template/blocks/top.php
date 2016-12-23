@@ -1,0 +1,1 @@
+<a href="/"><img src="template/img/logo.png" class="logo"></a>
